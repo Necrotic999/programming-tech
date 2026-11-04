@@ -46,5 +46,24 @@ pipeline {
                 }
             }
         }
+        stage('Image building') {
+            agent any
+            steps {
+                script {
+                    dockerImage = docker.build("lytvynchuk_illia/lab4-app:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        stage('Deploy') {
+            agent any
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
     }
 }
