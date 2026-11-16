@@ -1,3 +1,4 @@
+def dockerImage
 pipeline {
     options { timestamps() }
     agent none
@@ -50,7 +51,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    dockerImage = docker.build("lytvynchuk_illia/lab4-app:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("necrotic999/lab4-app:${env.BUILD_NUMBER}")
                 }
             }
         }
